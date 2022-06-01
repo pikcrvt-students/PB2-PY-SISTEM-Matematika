@@ -1,1 +1,1 @@
-*DP1-2 Daniels Sprogis
+*DP1-2 Daniels Sprogis*

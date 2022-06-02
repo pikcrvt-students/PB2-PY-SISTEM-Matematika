@@ -73,3 +73,4 @@ while True:
             break
     except ValueError:
         print('произошла ошибка')
+        

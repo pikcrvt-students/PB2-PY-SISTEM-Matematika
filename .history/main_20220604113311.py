@@ -180,13 +180,13 @@ while True:
             a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 2:
                 create_user()
-                a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
+                a = int(input('do you want to login or register an user? '))
             while a == 1:
                 error = login()
                 if error:
                     a = 3
                 else:
-                    a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
+                    a = int(input('do you want to login or register an user? '))
         except ValueError:
             print('Value Error')
     print(f"currently logged in as {username}")

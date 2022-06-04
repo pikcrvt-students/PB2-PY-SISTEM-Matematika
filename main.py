@@ -10,10 +10,12 @@ def register():
         a = f.read().split()
         for i in range(len(a)):
             usernames.append(a[i].split(':')[0])
-    username = input("enter an username: ")
+    username = input("enter an username, if you want to exit type 'exit': ")
     while username in usernames:
         print('already registred')
-        username = input("enter an username: ")
+        username = input("enter an username, if you want to exit type 'exit': ")
+    if username == 'exit':
+        return False
     password = input("enter a password: ")
     with open('users/users.txt', "a") as f:
         f.write(f"{username}:{password}\n")
@@ -88,7 +90,7 @@ def create_exercises():
                 answer = input("enter an answer ")
                 f.write(f"{text}:{answer}\n")
             else:
-                f.write(f"{text}\n")
+                pass
             
     print('file created!')
 
@@ -206,7 +208,11 @@ while True:
         try:
             a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 2:
-                register()
+                error = register()
+                if error:
+                    a = 3
+                else:
+                    a = 0
                 a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 1:
                 error = login()

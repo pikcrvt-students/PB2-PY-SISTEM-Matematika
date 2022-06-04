@@ -14,11 +14,11 @@ def create_user():
         a = f.read().split()
         for i in range(len(a)):
             usernames.append(a[i].split(':')[0])
-    username = input()
+    username = input("enter an username: ")
     while username in usernames:
         print('already registred')
-        username = input()
-    password = input()
+        username = input("enter an username: ")
+    password = input("enter a password: ")
     with open('users.txt', "a") as f:
         f.write(f"{username}:{password}\n")
     print('user is created')
@@ -33,14 +33,14 @@ def login():
         for i in range(len(a)):
             users.append(a[i].split(':')[0])
             passes.append(a[i].split(':')[1])
-    username = input()
+    username = input("enter an username: ")
     while username not in users:
         if username == 'exit':
             return False
         print('user is not registred, if you want to exit type "exit"')
-        username = input()
+        username = input("enter an username: ")
     indexof = users.index(username)
-    password = input()
+    password = input("enter a password: ")
     if password == passes[indexof]:
         print('logged')
         return True

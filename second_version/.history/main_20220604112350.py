@@ -66,7 +66,7 @@ def read_theory():
     onlyfiles = [f for f in os.listdir(mypath) if isfile(join(mypath, f))]
     for i in onlyfiles:
         print(i)
-    counter = int(input("select theory "))
+    counter = int(input("select theory"))
     while not os.path.isfile(f"theory/theory{counter}.txt"):
         print('theory not found')
         counter = int(input("select theory"))
@@ -174,50 +174,41 @@ def read_test():
 
 
 a = 0
-while True:
-    while username is None or a != 3:
-        try:
-            a = int(input('do you want to login or register an user? '))
-            while a == 2:
-                create_user()
-                a = int(input('do you want to login or register an user? '))
-            while a == 1:
-                error = login()
-                if error:
-                    a = 3
-                else:
-                    a = int(input('do you want to login or register an user? '))
-        except ValueError:
-            print('Value Error')
-    print(f"currently logged in as {username}")
 
-    if username == "teacher":
-        try:
-            while a == 1 or a == 2 or a == 3:
-                print("whether you want to create a theory, exercises, test or logout (1, 2, 3, 4) ")
-                a = int(input())
-                if a == 1:
-                    create_theory()
-                elif a == 2:
-                    create_exercises()
-                elif a == 3:
-                    create_test()
-                else:
-                    username = None
-        except ValueError:
-            print('Value Error')
-    else:
-        try:
-            while a == 1 or a == 2 or a == 3:
-                print("whether you want to read a theory, exercises, test or logout (1, 2, 3, 4) ")
-                a = int(input())
-                if a == 1:
-                    read_theory()
-                elif a == 2:
-                    read_exercises()
-                elif a == 3:
-                    read_test()
-                else:
-                    username = None
-        except ValueError:
-            print('Value Error')
+while username is None or a != 3:
+    a = int(input('do you want to login or register an user?'))
+    while a == 1:
+        create_user()
+        a = int(input('do you want to login or register an user?'))
+    while a == 2:
+        error = login()
+        if error:
+            a = 3
+        else:
+            a = int(input('do you want to login or register an user?'))
+print(f"currently logged in as {username}")
+
+if username == "teacher":
+    while a == 1 or a == 2 or a == 3:
+        print("whether you want to create a theory, exercises, test or logout (1, 2, 3, 4) ")
+        a = int(input())
+        if a == 1:
+            create_theory()
+        elif a == 2:
+            create_exercises()
+        elif a == 3:
+            create_test()
+        else:
+            username = None
+else:
+    while a == 1 or a == 2 or a == 3:
+        print("whether you want to read a theory, exercises, test or logout (1, 2, 3, 4) ")
+        a = int(input())
+        if a == 1:
+            read_theory()
+        elif a == 2:
+            read_exercises()
+        elif a == 3:
+            read_test()
+        else:
+            username = None

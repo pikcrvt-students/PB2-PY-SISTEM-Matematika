@@ -174,7 +174,7 @@ def read_test():
 
 
 a = 0
-while True:
+while
     while username is None or a != 3:
         try:
             a = int(input('do you want to login or register an user? '))

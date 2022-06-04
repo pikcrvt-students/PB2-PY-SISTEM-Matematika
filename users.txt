@@ -1,6 +1,1 @@
 123:456
-456:789
-789:890
-ROBERT:
-2:1
-teacher:teacher

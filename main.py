@@ -73,6 +73,7 @@ def read_theory():
             print(i)
             sleep(1)
 
+
 def create_exercises():
     counter = 0
     filename = "exercise"
@@ -175,7 +176,29 @@ def read_test():
                 a.write(f"test{counter} completed: grade = {round(count/max_answers*10)}\n")
 
 
-
+def check_grades():
+    if username != "teacher":
+        with open(f'users/{username}.txt', "r") as f:
+            read = f.read().split("\n")
+            for i in range(len(read)):
+                if i != 0:
+                    print(read[i])
+    else:
+        mypath = "users/"
+        files = [f for f in os.listdir(mypath) if isfile(join(mypath, f))]
+        files = [f.replace('.txt', '') for f in files]
+        files = list(filter(lambda a: a != "users", files))
+        print(files)
+        name = input('enter student name ')
+        while not os.path.isfile(f"users/{name}.txt"):
+            print('test not found')
+            name = input('enter student name ')
+        with open(f'users/{name}.txt', "r") as f:
+            read = f.read().split("\n")
+            for i in range(len(read)):
+                if i != 0:
+                    print(read[i])
+                
 
 a = 0
 while True:
@@ -197,8 +220,8 @@ while True:
 
     if username == "teacher":
         try:
-            while a == 1 or a == 2 or a == 3:
-                print("whether you want to create a theory, exercises, test or logout (1, 2, 3, 4) ")
+            while a == 1 or a == 2 or a == 3 or a == 4:
+                print("whether you want to create a theory, exercises, test, check grades or logout (1, 2, 3, 4, 5) ")
                 a = int(input())
                 if a == 1:
                     create_theory()
@@ -206,14 +229,16 @@ while True:
                     create_exercises()
                 elif a == 3:
                     create_test()
+                elif a == 4:
+                    check_grades()
                 else:
                     username = None
         except ValueError:
             print('Value Error')
     else:
         try:
-            while a == 1 or a == 2 or a == 3:
-                print("whether you want to read a theory, exercises, test or logout (1, 2, 3, 4) ")
+            while a == 1 or a == 2 or a == 3 or a == 4:
+                print("whether you want to read a theory, exercises, test, check grades or logout (1, 2, 3, 4, 5) ")
                 a = int(input())
                 if a == 1:
                     read_theory()
@@ -221,6 +246,8 @@ while True:
                     read_exercises()
                 elif a == 3:
                     read_test()
+                elif a == 4:
+                    check_grades()
                 else:
                     username = None
         except ValueError:

@@ -25,7 +25,8 @@ def register():
 
 def login():
     global username
-    users = passes = []
+    users = []
+    passes = []
     with open('users/users.txt', "r") as f:
         a = f.read().split()
         for i in range(len(a)):
@@ -132,6 +133,12 @@ def create_test():
     print('file created!')
 
 def read_test():
+    """
+    >>> 0
+    >>> 2
+    >>> 4
+    >>> 6
+    """
     mypath = "test/"   
     onlyfiles = [f for f in os.listdir(mypath) if isfile(join(mypath, f))]
     for i in onlyfiles:
@@ -186,6 +193,11 @@ def check_grades():
                 if i != 0: print(read[i])
                 
 
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+
 a = 0
 while True:
     while username is None or a != 3:
@@ -225,3 +237,6 @@ while True:
                 elif a == 4: check_grades()
                 else: username = None
         except ValueError: print('Value Error')
+
+
+

@@ -8,6 +8,12 @@ from time import sleep
 username = None
 
 def register():
+    # """
+    # >>> register()
+    #     >>> vvv
+    #     >>> vvv
+    # True
+    # """
     usernames = []
     with open('users/users.txt', "r") as f:
         a = f.read().split()
@@ -21,6 +27,7 @@ def register():
     with open('users/users.txt', "a") as f: f.write(f"{username}:{password}\n")
     print('user is created')
     with open(f'users/{username}.txt', "a") as f: f.write(f"{username}_file\n")
+    return True
 
 
 def login():
@@ -133,12 +140,6 @@ def create_test():
     print('file created!')
 
 def read_test():
-    """
-    >>> 0
-    >>> 2
-    >>> 4
-    >>> 6
-    """
     mypath = "test/"   
     onlyfiles = [f for f in os.listdir(mypath) if isfile(join(mypath, f))]
     for i in onlyfiles:
@@ -205,12 +206,12 @@ while True:
             a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 2:
                 error = register()
-                if error: a = 3
+                if error == False: a = 3
                 else: a = 0
                 a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 1:
                 error = login()
-                if error: a = 3
+                if error == False: a = 3
                 else: a = 0
         except ValueError: print('Value Error')
     print(f"currently logged in as {username}")

@@ -233,14 +233,14 @@ a = 0
 while True:
     while username is None or a != 3:
         try:
-            a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
+            a = int(input('do you want to login or register an user(1 or 2)? (ctrl + c to exit) '))
             while a == 2:
                 error = register()
                 if error:
                     a = 3
                 else:
                     a = 0
-                a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
+                a = int(input('do you want to login or register an user(1 or 2)? (ctrl + c to exit) '))
             while a == 1:
                 error = login()
                 if error:

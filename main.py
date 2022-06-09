@@ -1,5 +1,6 @@
-#versija 1.0.0
-# notestēja Roberts Šalajevs DP1-2
+# versija 1.0.0
+# notesteja Roberts Šalajevs
+
 
 import os
 from os.path import isfile, join
@@ -8,26 +9,23 @@ from time import sleep
 username = None
 
 def register():
-    # """
-    # >>> register()
-    #     >>> vvv
-    #     >>> vvv
-    # True
-    # """
     usernames = []
     with open('users/users.txt', "r") as f:
         a = f.read().split()
-        for i in range(len(a)): usernames.append(a[i].split(':')[0])
+        for i in range(len(a)):
+            usernames.append(a[i].split(':')[0])
     username = input("enter an username, if you want to exit type 'exit': ")
     while username in usernames:
         print('already registred')
         username = input("enter an username, if you want to exit type 'exit': ")
-    if username == 'exit': return False
+    if username == 'exit':
+        return False
     password = input("enter a password: ")
-    with open('users/users.txt', "a") as f: f.write(f"{username}:{password}\n")
+    with open('users/users.txt', "a") as f:
+        f.write(f"{username}:{password}\n")
     print('user is created')
-    with open(f'users/{username}.txt', "a") as f: f.write(f"{username}_file\n")
-    return True
+    with open(f'users/{username}.txt', "a") as f:
+        f.write(f"{username}_file\n")
 
 
 def login():
@@ -50,13 +48,15 @@ def login():
     if password == passes[indexof]:
         print('logged')
         return True
-    else: print('wrong password')    
+    else:
+        print('wrong password')    
 
 
 def create_theory():
     counter = 0
     filename = "theory"
-    while os.path.isfile(f"theory/{filename}{counter}.txt"): counter += 1
+    while os.path.isfile(f"theory/{filename}{counter}.txt"):
+        counter += 1
     print(f"{filename}{counter}.txt")
     with open(f'theory/{filename}{counter}.txt', "w") as f:
         text = ""
@@ -68,7 +68,8 @@ def create_theory():
 def read_theory():
     mypath = "theory/"   
     onlyfiles = [f for f in os.listdir(mypath) if isfile(join(mypath, f))]
-    for i in onlyfiles: print(i)
+    for i in onlyfiles:
+        print(i)
     counter = int(input("select theory "))
     while not os.path.isfile(f"theory/theory{counter}.txt"):
         print('theory not found')
@@ -82,7 +83,8 @@ def read_theory():
 def create_exercises():
     counter = 0
     filename = "exercise"
-    while os.path.isfile(f"exercises/{filename}{counter}.txt"): counter += 1
+    while os.path.isfile(f"exercises/{filename}{counter}.txt"):
+        counter += 1
     print(f"{filename}{counter}.txt")
     with open(f'exercises/{filename}{counter}.txt', "w") as f:
         text = ""
@@ -91,18 +93,22 @@ def create_exercises():
             if text != "stop":
                 answer = input("enter an answer ")
                 f.write(f"{text}:{answer}\n")
-            else: pass
+            else:
+                pass
+            
     print('file created!')
 
 def read_exercises():
     mypath = "exercises/"   
     onlyfiles = [f for f in os.listdir(mypath) if isfile(join(mypath, f))]
-    for i in onlyfiles: print(i)
+    for i in onlyfiles:
+        print(i)
     counter = int(input("select exercise "))
     while not os.path.isfile(f"exercises/exercise{counter}.txt"):
         print('exercise not found')
         counter = int(input("select exercise "))
-    questions = answers = []
+    questions = []
+    answers = []
     with open(f"exercises/exercise{counter}.txt", "r") as f:
         a = f.read().split()
         print(a)
@@ -119,6 +125,7 @@ def read_exercises():
             count +=1
         else:
             print(f'incorrect!, answer is {answers[i]}')
+            count = count
     print()    
         
 
@@ -135,7 +142,8 @@ def create_test():
             if text != "stop":
                 answer = input("enter an answer ")
                 f.write(f"{text}:{answer}\n")
-            else: f.write(f"{text}\n")
+            else:
+                f.write(f"{text}\n")
             
     print('file created!')
 
@@ -160,18 +168,33 @@ def read_test():
     for i in range(max_answers):
         print(questions[i])
         answer = input('enter answer ')
-        if answers[i] == answer: count +=1
-        else: pass
+        if answers[i] == answer:
+            count +=1
+        else:
+            count = count
     print(f"you scored {count} points out of {max_answers}, your grade is {round(count/max_answers*10)}")
     with open(f'users/{username}.txt', "r") as f:
         read = f.read()
-        if f"test{counter}" in read: pass
+        if f"test{counter}" in read:
+            pass
         else:
             with open(f'users/{username}.txt', "a") as a:
                 a.write(f"test{counter} completed: grade = {round(count/max_answers*10)}\n")
 
 
+def avg(array):
+    """
+    >>> avg([1, 2, 3])
+    2
+    >>> avg([10, 10, 10])
+    10
+    """
+    return int(round(sum(array)/len(array)))
+
+
+
 def check_grades():
+    
     if username != "teacher":
         with open(f'users/{username}.txt', "r") as f:
             read = f.read().split("\n")
@@ -191,9 +214,16 @@ def check_grades():
         with open(f'users/{name}.txt', "r") as f:
             read = f.read().split("\n")
             for i in range(len(read)):
-                if i != 0: print(read[i])
+                if i != 0:
+                    print(read[i])
+    grades = []
+    for counter, i in enumerate(read):
+        if counter != 0 or counter != len(read):
+            a = [int(s) for s in i.split() if s.isdigit()]
+            if len(a) != 0:
+                grades.append(a[0])
+    print(f"your average grade = {avg(grades)}")
                 
-
 
 if __name__ == "__main__":
     import doctest
@@ -206,14 +236,19 @@ while True:
             a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 2:
                 error = register()
-                if error == False: a = 3
-                else: a = 0
+                if error:
+                    a = 3
+                else:
+                    a = 0
                 a = int(input('do you want to login or register an user? (ctrl + c to exit) '))
             while a == 1:
                 error = login()
-                if error == False: a = 3
-                else: a = 0
-        except ValueError: print('Value Error')
+                if error:
+                    a = 3
+                else:
+                    a = 0
+        except ValueError:
+            print('Value Error')
     print(f"currently logged in as {username}")
 
     if username == "teacher":
@@ -221,23 +256,32 @@ while True:
             while a == 1 or a == 2 or a == 3 or a == 4:
                 print("whether you want to create a theory, exercises, test, check grades or logout (1, 2, 3, 4, 5) ")
                 a = int(input())
-                if a == 1: create_theory()
-                elif a == 2: create_exercises()
-                elif a == 3: create_test()
-                elif a == 4: check_grades()
-                else: username = None
-        except ValueError: print('Value Error')
+                if a == 1:
+                    create_theory()
+                elif a == 2:
+                    create_exercises()
+                elif a == 3:
+                    create_test()
+                elif a == 4:
+                    check_grades()
+                else:
+                    username = None
+        except ValueError:
+            print('Value Error')
     else:
         try:
             while a == 1 or a == 2 or a == 3 or a == 4:
                 print("whether you want to read a theory, exercises, test, check grades or logout (1, 2, 3, 4, 5) ")
                 a = int(input())
-                if a == 1: read_theory()
-                elif a == 2: read_exercises()
-                elif a == 3: read_test()
-                elif a == 4: check_grades()
-                else: username = None
-        except ValueError: print('Value Error')
-
-
-
+                if a == 1:
+                    read_theory()
+                elif a == 2:
+                    read_exercises()
+                elif a == 3:
+                    read_test()
+                elif a == 4:
+                    check_grades()
+                else:
+                    username = None
+        except ValueError:
+            print('Value Error')
